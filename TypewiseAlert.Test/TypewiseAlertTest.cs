@@ -14,7 +14,10 @@ namespace TypewiseAlert.Test
     [Fact]
     public void ReportEmailNotification()
     {
-      Assert.True(AlertTargetType.CheckAndAlert(AlertTargetType.AlertTarget.TO_EMAIL,AlertTargetType.BatteryCharacter."brand",30) ==
+      BatteryCharacter batteryChar = new BatteryCharacter();
+      batteryChar.coolingType = PASSIVE_COOLING;
+      batteryChar.brand = "Test";
+      Assert.True(AlertTargetType.CheckAndAlert(AlertTargetType.AlertTarget.TO_EMAIL,AlertTargetType.BatteryCharacter.batteryChar,30) ==
         "Sent");
     }
   }
