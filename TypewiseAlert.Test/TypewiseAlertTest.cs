@@ -14,7 +14,7 @@ namespace TypewiseAlert.Test
     [Fact]
     public void ReportEmailNotification()
     {
-      Assert.True(AlertTargetType.CheckAndAlert(AlertTargetType.AlertTarget.TO_EMAIL,CoolingTypeAlert.CoolingType.PASSIVE_COOLING,30) ==
+      Assert.True(AlertTargetType.CheckAndAlert(AlertTargetType.AlertTarget.TO_EMAIL,AlertTargetType.BatteryCharacter."brand",30) ==
         "Sent");
     }
   }
