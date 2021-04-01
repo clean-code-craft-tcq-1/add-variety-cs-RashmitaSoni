@@ -12,9 +12,9 @@ namespace TypewiseAlert.Test
         BreachTypeAlert.BreachType.TOO_LOW);
     }
     [Fact]
-    public void ReportWhenSentToContoller()
+    public void ReportEmailNotification()
     {
-      Assert.True(AlertTargetTypes.SendToController(BreachTypeAlert.BreachType.TOO_LOW) ==
+      Assert.True(AlertTargetType.CheckAndAlert(AlertTargetType.AlertTarget.TO_EMAIL,CoolingTypeAlert.CoolingType.PASSIVE_COOLING,30) ==
         "Sent");
     }
   }
