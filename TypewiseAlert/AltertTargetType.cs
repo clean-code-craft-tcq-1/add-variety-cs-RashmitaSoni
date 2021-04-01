@@ -36,14 +36,14 @@ namespace TypewiseAlert
         {
             const ushort header = 0xfeed;
             Console.WriteLine("{} : {}\n", header, breachType);
-            return "Done";
+            return "Sent";
         }
 
         public static String SendToEmail(BreachType breachType)
         {
             string recepient = "a.b@c.com";
             new SetEmailMessagesForBreachType().Email[breachType]().GetEmailContent(recepient, breachType);
-            return "Done";
+            return "Sent";
         }
     }
     public class SetEmailMessagesForBreachType
