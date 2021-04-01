@@ -26,24 +26,24 @@ namespace TypewiseAlert
     }
     public class AlertTargetTypes
     {
-        public Dictionary<AlertTarget, String> AlertTargetType = new Dictionary<AlertTarget, String>();
+        public Dictionary<AlertTarget, bool> AlertTargetType = new Dictionary<AlertTarget, bool>();
         public AlertTargetTypes(BreachType breachType)
         {
             AlertTargetType.Add(AlertTarget.TO_CONTROLLER, SendToController(breachType));
             AlertTargetType.Add(AlertTarget.TO_EMAIL, SendToEmail(breachType));
         }
-        public static String SendToController(BreachType breachType)
+        public static bool SendToController(BreachType breachType)
         {
             const ushort header = 0xfeed;
             Console.WriteLine("{} : {}\n", header, breachType);
-            return "Sent";
+            return true;
         }
 
-        public static String SendToEmail(BreachType breachType)
+        public static bool SendToEmail(BreachType breachType)
         {
             string recepient = "a.b@c.com";
             new SetEmailMessagesForBreachType().Email[breachType]().GetEmailContent(recepient, breachType);
-            return "Sent";
+            return true;
         }
     }
     public class SetEmailMessagesForBreachType
@@ -57,4 +57,5 @@ namespace TypewiseAlert
             Email.Add(BreachType.NORMAL, () => { return new MailNormalStateInfo(); });
         }
     }
+
 }
