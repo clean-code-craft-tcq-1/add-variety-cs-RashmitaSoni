@@ -21,8 +21,17 @@ namespace TypewiseAlert
         }
         public static string CheckAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC)
         {
-            BreachType breachType = ClassifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
-            return (new AlertTargetTypes(breachType).AlertTargetType[alertTarget]);
+           try
+            {
+                BreachType breachType = ClassifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
+                string result = new AlertTargetTypes(breachType).AlertTargetType[alertTarget];
+                return true;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
         }
     }
     public class AlertTargetTypes
