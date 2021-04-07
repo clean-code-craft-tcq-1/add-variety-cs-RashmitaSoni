@@ -19,7 +19,7 @@ namespace TypewiseAlert
             public CoolingType coolingType;
             public string brand;
         }
-        public static string CheckAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC)
+        public static bool CheckAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC)
         {
            try
             {
