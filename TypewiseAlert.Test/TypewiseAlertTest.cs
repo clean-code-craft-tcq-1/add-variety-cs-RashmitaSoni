@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using static TypewiseAlert.AlertTargetType;
 
 namespace TypewiseAlert.Test
 {
