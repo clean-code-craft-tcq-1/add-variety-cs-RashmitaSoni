@@ -25,7 +25,7 @@ namespace TypewiseAlert.Test
             batterychar.brand = "BOSCH";
             batterychar.coolingType = CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING;
             
-             Assert.True(AlertTargetType.CheckAndAlert(AlertTarget.TO_CONTROLLER, batterychar, 10) ==
+             Assert.False(AlertTargetType.CheckAndAlert(AlertTarget.TO_CONTROLLER, batterychar, 10) ==
              "Success");
     }
   }
