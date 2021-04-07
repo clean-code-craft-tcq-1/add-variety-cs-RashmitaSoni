@@ -21,18 +21,12 @@ namespace TypewiseAlert.Test
     [Fact]
     public static void CheckAndAlertFunctionalityTests()
     {
-            try
-            {
-                BatteryCharacter batterychar = new BatteryCharacter();
-                batterychar.brand = "BOSCH";
-                batterychar.coolingType = CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING;
-                AlertTargetType.CheckAndAlert(AlertTarget.TO_CONTROLLER, batterychar, 10);
-                return; // indicates success
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
+           BatteryCharacter batterychar = new BatteryCharacter();
+            batterychar.brand = "BOSCH";
+            batterychar.coolingType = CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING;
+            
+            Console.WriteLine(AlertTargetType.CheckAndAlert(AlertTarget.TO_CONTROLLER, batterychar, 10) ==
+             "Success");
     }
   }
 }
