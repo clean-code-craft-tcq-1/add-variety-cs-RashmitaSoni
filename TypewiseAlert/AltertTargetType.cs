@@ -11,7 +11,8 @@ namespace TypewiseAlert
         public enum AlertTarget
         {
             TO_CONTROLLER,
-            TO_EMAIL
+            TO_EMAIL,
+            TO_CONSOLE
         };
         public struct BatteryCharacter
         {
@@ -31,19 +32,25 @@ namespace TypewiseAlert
         {
             AlertTargetType.Add(AlertTarget.TO_CONTROLLER, SendToController(breachType));
             AlertTargetType.Add(AlertTarget.TO_EMAIL, SendToEmail(breachType));
+            AlertTargetType.Add(AlertTarget.TO_CONSOLE, DisplayToConsole(breachType));
         }
         public static String SendToController(BreachType breachType)
         {
             const ushort header = 0xfeed;
-            Console.WriteLine("{} : {}\n", header, breachType);
-            return "Sent";
+            Console.WriteLine("{0} : {1}\n", header, breachType);
+            return "Success";
         }
 
         public static String SendToEmail(BreachType breachType)
         {
             string recepient = "a.b@c.com";
             new SetEmailMessagesForBreachType().Email[breachType]().GetEmailContent(recepient, breachType);
-            return "Sent";
+            return "Success";
+        }
+        public static String DisplayToConsole(BreachType breachType)
+        {
+            new SetDisplayMessagesForBreachType().Message[breachType]().DisplayContent(breachType);
+            return "Success";
         }
     }
     public class SetEmailMessagesForBreachType
@@ -57,5 +64,15 @@ namespace TypewiseAlert
             Email.Add(BreachType.NORMAL, () => { return new MailNormalStateInfo(); });
         }
     }
+    public class SetDisplayMessagesForBreachType
+    {
+        public Dictionary<BreachType, Func<IDisplayContent>> Message = new Dictionary<BreachType, Func<IDisplayContent>>();
 
+        public SetDisplayMessagesForBreachType()
+        {
+            Message.Add(BreachType.TOO_HIGH, () => { return new DsiplayHighBreachTypeInfo(); });
+            Message.Add(BreachType.TOO_LOW, () => { return new DisplayLowBreachTypeInfo(); });
+            Message.Add(BreachType.NORMAL, () => { return new DisplayNormalStateInfo(); });
+        }
+    }
 }
