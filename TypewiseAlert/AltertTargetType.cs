@@ -19,19 +19,10 @@ namespace TypewiseAlert
             public CoolingType coolingType;
             public string brand;
         }
-        public static bool CheckAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC)
+        public static void CheckAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC)
         {
-           try
-            {
-                BreachType breachType = ClassifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
-                string result = new AlertTargetTypes(breachType).AlertTargetType[alertTarget];
-                return true;
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e);
-                return false;
-            }
+            BreachType breachType = ClassifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
+            string result = new AlertTargetTypes(breachType).AlertTargetType[alertTarget];
         }
     }
     public class AlertTargetTypes
