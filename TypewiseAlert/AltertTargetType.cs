@@ -12,7 +12,8 @@ namespace TypewiseAlert
         {
             TO_CONTROLLER,
             TO_EMAIL,
-            TO_CONSOLE
+            TO_CONSOLE,
+            TO_TESTEMAIL //For Unit Testing
         };
         public struct BatteryCharacter
         {
@@ -22,35 +23,38 @@ namespace TypewiseAlert
         public static void CheckAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC)
         {
             BreachType breachType = ClassifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
-            string result = new AlertTargetTypes(breachType).AlertTargetType[alertTarget];
+            new AlertTargetTypes(breachType).AlertTargetType[alertTarget]();
         }
     }
     public class AlertTargetTypes
     {
-        public Dictionary<AlertTarget, String> AlertTargetType = new Dictionary<AlertTarget, String>();
+        public Dictionary<AlertTarget, Action> AlertTargetType = new Dictionary<AlertTarget, Action>();
         public AlertTargetTypes(BreachType breachType)
         {
-            AlertTargetType.Add(AlertTarget.TO_CONTROLLER, SendToController(breachType));
-            AlertTargetType.Add(AlertTarget.TO_EMAIL, SendToEmail(breachType));
-            AlertTargetType.Add(AlertTarget.TO_CONSOLE, DisplayToConsole(breachType));
+            AlertTargetType.Add(AlertTarget.TO_CONTROLLER, (() =>SendToController(breachType)));
+            AlertTargetType.Add(AlertTarget.TO_EMAIL, (() =>SendToEmail(breachType)));
+            AlertTargetType.Add(AlertTarget.TO_CONSOLE, (() =>DisplayToConsole(breachType)));
+            AlertTargetType.Add(AlertTarget.TO_TESTEMAIL, (() =>TestFakeEmail(breachType)));
         }
-        public static String SendToController(BreachType breachType)
+        public static void SendToController(BreachType breachType)
         {
             const ushort header = 0xfeed;
             Console.WriteLine("{0} : {1}\n", header, breachType);
-            return "Success";
         }
 
-        public static String SendToEmail(BreachType breachType)
+        public static void SendToEmail(BreachType breachType)
         {
             string recepient = "a.b@c.com";
             new SetEmailMessagesForBreachType().Email[breachType]().GetEmailContent(recepient, breachType);
-            return "Success";
         }
-        public static String DisplayToConsole(BreachType breachType)
+        public static void DisplayToConsole(BreachType breachType)
         {
             DisplayBreachTypeInfo.DisplayContent(breachType);
-            return "Success";
+        }
+        public static void TestFakeEmail(BreachType breachType)
+        {
+            string recepient = "test.fake@email.com";
+            new FakeMailStateInfo().GetEmailContent(recepient, breachType);
         }
     }
     public class SetEmailMessagesForBreachType
