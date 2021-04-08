@@ -18,5 +18,14 @@ namespace TypewiseAlert.Test
             Assert.True(CoolingTypeAlert.ClassifyTemperatureBreach(CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING, 40) ==
               BreachTypeAlert.BreachType.NORMAL);
      }
+    [Fact]
+    public static void CheckAndAlertFunctionalityTests()
+        {
+            BatteryCharacter batterychar = new BatteryCharacter();
+            batterychar.brand = "BOSCH";
+            batterychar.coolingType = CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING;
+            CheckAndAlert(AlertTarget.TO_TESTEMAIL, batterychar, 10);
+            Assert.True(FakeMailStateInfo.IsEmailTriggered);
+        }
   }
 }
