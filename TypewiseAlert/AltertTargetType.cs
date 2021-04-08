@@ -49,7 +49,7 @@ namespace TypewiseAlert
         }
         public static String DisplayToConsole(BreachType breachType)
         {
-            new SetDisplayMessagesForBreachType().Message[breachType]().DisplayContent(breachType);
+            DisplayBreachTypeInfo.DisplayContent(breachType);
             return "Success";
         }
     }
@@ -62,17 +62,6 @@ namespace TypewiseAlert
             Email.Add(BreachType.TOO_HIGH, () => { return new MailHighBreachTypeInfo(); });
             Email.Add(BreachType.TOO_LOW, () => { return new MailLowBreachTypeInfo(); });
             Email.Add(BreachType.NORMAL, () => { return new MailNormalStateInfo(); });
-        }
-    }
-    public class SetDisplayMessagesForBreachType
-    {
-        public Dictionary<BreachType, Func<IDisplayContent>> Message = new Dictionary<BreachType, Func<IDisplayContent>>();
-
-        public SetDisplayMessagesForBreachType()
-        {
-            Message.Add(BreachType.TOO_HIGH, () => { return new DsiplayHighBreachTypeInfo(); });
-            Message.Add(BreachType.TOO_LOW, () => { return new DisplayLowBreachTypeInfo(); });
-            Message.Add(BreachType.NORMAL, () => { return new DisplayNormalStateInfo(); });
         }
     }
 }
