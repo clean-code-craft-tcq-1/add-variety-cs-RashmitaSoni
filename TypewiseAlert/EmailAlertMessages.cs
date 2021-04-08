@@ -35,7 +35,7 @@ namespace TypewiseAlert
             Console.WriteLine("Hi, the temperature is in normal state\n");
         }
     }
-    class FakeMailStateInfo : IInitializeEmailContent
+    public class FakeMailStateInfo : IInitializeEmailContent
     {
         public static bool IsEmailTriggered = false;
         public void GetEmailContent(string Recepient, BreachType BreachType)
