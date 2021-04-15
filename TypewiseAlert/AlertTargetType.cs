@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using static TypewiseAlert.AlertTargetType;
+using static TypewiseAlert.AlertTypes;
 using static TypewiseAlert.BreachTypeAlert;
 using static TypewiseAlert.CoolingTypeAlert;
 
@@ -8,13 +9,6 @@ namespace TypewiseAlert
 {
     public class AlertTargetType
     {
-        public enum AlertTarget
-        {
-            TO_CONTROLLER,
-            TO_EMAIL,
-            TO_CONSOLE,
-            TO_TESTEMAIL //For Unit Testing
-        };
         public struct BatteryCharacter
         {
             public CoolingType coolingType;
@@ -23,19 +17,13 @@ namespace TypewiseAlert
         public static void CheckAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC)
         {
             BreachType breachType = ClassifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
-            new AlertTargetTypes(breachType).AlertTargetType[alertTarget]();
+            var alertFactory = new AlertFactory();
+            var type = alertFactory.GetAlertBasedOnTargetType(alertTarget);
+            type.GetAlertType(breachType);
         }
     }
     public class AlertTargetTypes
     {
-        public Dictionary<AlertTarget, Action> AlertTargetType = new Dictionary<AlertTarget, Action>();
-        public AlertTargetTypes(BreachType breachType)
-        {
-            AlertTargetType.Add(AlertTarget.TO_CONTROLLER, (() =>SendToController(breachType)));
-            AlertTargetType.Add(AlertTarget.TO_EMAIL, (() =>SendToEmail(breachType)));
-            AlertTargetType.Add(AlertTarget.TO_CONSOLE, (() =>DisplayToConsole(breachType)));
-            AlertTargetType.Add(AlertTarget.TO_TESTEMAIL, (() =>TestFakeEmail(breachType)));
-        }
         public static void SendToController(BreachType breachType)
         {
             const ushort header = 0xfeed;
@@ -47,14 +35,9 @@ namespace TypewiseAlert
             string recepient = "a.b@c.com";
             new SetEmailMessagesForBreachType().Email[breachType]().GetEmailContent(recepient, breachType);
         }
-        public static void DisplayToConsole(BreachType breachType)
+        public static void SendToConsole(BreachType breachType)
         {
             DisplayBreachTypeInfo.DisplayContent(breachType);
-        }
-        public static void TestFakeEmail(BreachType breachType)
-        {
-            string recepient = "test.fake@email.com";
-            new FakeMailStateInfo().GetEmailContent(recepient, breachType);
         }
     }
     public class SetEmailMessagesForBreachType
@@ -66,6 +49,12 @@ namespace TypewiseAlert
             Email.Add(BreachType.TOO_HIGH, () => { return new MailHighBreachTypeInfo(); });
             Email.Add(BreachType.TOO_LOW, () => { return new MailLowBreachTypeInfo(); });
             Email.Add(BreachType.NORMAL, () => { return new MailNormalStateInfo(); });
+        }
+
+        public static void DisplayEmailContent(string Recepient, BreachType BreachType)
+        {
+            Console.WriteLine("To: {0}\n", Recepient);
+            Console.WriteLine("Hi, the temperature is {0}\n",BreachType);
         }
     }
 }
