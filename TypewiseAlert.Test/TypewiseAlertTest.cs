@@ -7,25 +7,35 @@ namespace TypewiseAlert.Test
   public class TypewiseAlertTest
   {
     [Fact]
-    public void InfersBreachAsPerLimits()
+    public void TestInfersBreachAsPerLimits()
     {
-      Assert.True(BreachTypeAlert.InferBreach(12, 20, 30) ==
-        BreachTypeAlert.BreachType.TOO_LOW);
+      Assert.True(BreachTypeAlert.InferBreach(12, 20, 30) == BreachTypeAlert.BreachType.TOO_LOW);
     }
     [Fact]
-     public void ClassifyTemperatureBreachLimits()
+     public void TestClassifyTemperatureBreachLimits()
      {
-            Assert.True(CoolingTypeAlert.ClassifyTemperatureBreach(CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING, 40) ==
-              BreachTypeAlert.BreachType.NORMAL);
+            Assert.True(CoolingTypeAlert.ClassifyTemperatureBreach(CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING, 40) == BreachTypeAlert.BreachType.NORMAL);
      }
     [Fact]
-    public static void CheckAndAlertFunctionalityTests()
+    public static void TestControllerNotifier()
         {
-            BatteryCharacter batterychar = new BatteryCharacter();
-            batterychar.brand = "BOSCH";
-            batterychar.coolingType = CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING;
-            CheckAndAlert(AlertTarget.TO_TESTEMAIL, batterychar, 10);
-            Assert.True(FakeMailStateInfo.IsEmailTriggered);
+            FakeSentToController callfakecontroller = new FakeSentToController();
+            callfakecontroller.GetAlertType(BreachTypeAlert.BreachType.NORMAL);
+            Assert.True(FakeSentToController.IsFakeSentToControllerInvoked);
+        }
+    [Fact]
+    public static void TestEmailNotifier()
+        {
+            FakeSentToEmail callfakeemail = new FakeSentToEmail();
+            callfakeemail.GetAlertType(BreachTypeAlert.BreachType.NORMAL);
+            Assert.True(FakeSentToEmail.IsFakeSentToEmailInvoked);
+        }
+    [Fact]
+    public static void TestConsoleNotifier()
+        {
+            FakeSentToConsole callfakeconsole = new FakeSentToConsole();
+            callfakeconsole.GetAlertType(BreachTypeAlert.BreachType.NORMAL);
+            Assert.True(FakeSentToConsole.IsFakeSentToConsoleInvoked);
         }
   }
 }
