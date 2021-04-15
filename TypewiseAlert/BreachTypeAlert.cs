@@ -15,6 +15,13 @@ namespace TypewiseAlert
             return (value < lowerLimit) ? BreachType.TOO_LOW :
                    (value > upperLimit) ? BreachType.TOO_HIGH :
                                           BreachType.NORMAL;
-        }   
+        }
+        public static class DisplayBreachTypeInfo
+        {
+            public static void DisplayContent(BreachType BreachType)
+            {
+                Console.WriteLine("Temperature is {0}\n", BreachType);
+            }
+        }
     }
 }
