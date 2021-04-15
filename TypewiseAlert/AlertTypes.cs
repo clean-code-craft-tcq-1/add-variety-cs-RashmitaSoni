@@ -53,7 +53,7 @@ namespace TypewiseAlert
         }
         public class FakeSentToEmail : AlertType
         {
-            public bool IsFakeSentToEmailInvoked = false;
+            public static bool IsFakeSentToEmailInvoked = false;
             public override void GetAlertType(BreachType breachType)
             {
                 IsFakeSentToEmailInvoked = true;
@@ -61,7 +61,7 @@ namespace TypewiseAlert
         }
         public class FakeSentToConsole : AlertType
         {
-            public bool IsFakeSentToConsoleInvoked = false;
+            public static bool IsFakeSentToConsoleInvoked = false;
             public override void GetAlertType(BreachType breachType)
             {
                 IsFakeSentToConsoleInvoked = true;
@@ -84,6 +84,5 @@ namespace TypewiseAlert
                 return _alertTypeMapper[aterType]();
             }
         }
-        
     }
 }
