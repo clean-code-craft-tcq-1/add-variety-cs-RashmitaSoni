@@ -56,6 +56,24 @@ namespace TypewiseAlert.Test
           Assert.NotNull(emailMessageType);
       }
     [Fact]
+      public void TestMailHighBreachTypeInfo()
+      {
+          var isException = Record.Exception(() => new MailHighBreachTypeInfo().GetEmailContent("test@mail.com", BreachTypeAlert.BreachType.HIGH));
+          Assert.Null(isException);
+      }
+     [Fact]
+      public void TestMailLowBreachTypeInfo()
+      {
+          var isException = Record.Exception(() => new MailLowBreachTypeInfo().GetEmailContent("test@mail.com", BreachTypeAlert.BreachType.LOW));
+          Assert.Null(isException);
+      }
+      [Fact]
+      public void TestMailNormalBreachTypeInfo()
+      {
+          var isException = Record.Exception(() => new MailNormalStateInfo().GetEmailContent("test@mail.com", BreachTypeAlert.BreachType.NORMAL));
+          Assert.Null(isException);
+      }
+    [Fact]
     public static void TestControllerNotifier()
         {
             FakeSentToController callfakecontroller = new FakeSentToController();
