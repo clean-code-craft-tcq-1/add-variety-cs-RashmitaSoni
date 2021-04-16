@@ -40,7 +40,7 @@ namespace TypewiseAlert.Test
     [Fact]
       public void TestSetEmailMessagesForBreachType()
       {
-          var emailMessageType = new SetEmailMessagesForBreachType().Email[BreachType.TOO_HIGH]();
+          var emailMessageType = new SetEmailMessagesForBreachType().Email[BreachTypeAlert.BreachType.TOO_HIGH]();
           Assert.NotNull(emailMessageType);
       }
     [Fact]
