@@ -21,21 +21,21 @@ namespace TypewiseAlert.Test
     public static void TestControllerNotifier()
         {
             FakeSentToController callfakecontroller = new FakeSentToController();
-            callfakecontroller.GetAlertType(BreachTypeAlert.BreachType.NORMAL);
+            callfakecontroller.CallAlertTartgetType(BreachTypeAlert.BreachType.NORMAL);
             Assert.True(FakeSentToController.IsFakeSentToControllerInvoked);
         }
     [Fact]
     public static void TestEmailNotifier()
         {
             FakeSentToEmail callfakeemail = new FakeSentToEmail();
-            callfakeemail.GetAlertType(BreachTypeAlert.BreachType.NORMAL);
+            callfakeemail.CallAlertTartgetType(BreachTypeAlert.BreachType.NORMAL);
             Assert.True(FakeSentToEmail.IsFakeSentToEmailInvoked);
         }
     [Fact]
     public static void TestConsoleNotifier()
         {
             FakeSentToConsole callfakeconsole = new FakeSentToConsole();
-            callfakeconsole.GetAlertType(BreachTypeAlert.BreachType.NORMAL);
+            callfakeconsole.CallAlertTartgetType(BreachTypeAlert.BreachType.NORMAL);
             Assert.True(FakeSentToConsole.IsFakeSentToConsoleInvoked);
         }
   }
