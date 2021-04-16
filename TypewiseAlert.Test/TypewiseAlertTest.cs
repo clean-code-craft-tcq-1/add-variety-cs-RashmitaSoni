@@ -38,6 +38,12 @@ namespace TypewiseAlert.Test
             Assert.True(CoolingTypeAlert.ClassifyTemperatureBreach(CoolingTypeAlert.CoolingType.PASSIVE_COOLING, -2) == BreachTypeAlert.BreachType.TOO_LOW);
      }
     [Fact]
+      public void TestSetEmailMessagesForBreachType()
+      {
+          var emailMessageType = new SetEmailMessagesForBreachType().Email[BreachType.TOO_HIGH]();
+          Assert.NotNull(emailMessageType);
+      }
+    [Fact]
     public static void TestControllerNotifier()
         {
             FakeSentToController callfakecontroller = new FakeSentToController();
