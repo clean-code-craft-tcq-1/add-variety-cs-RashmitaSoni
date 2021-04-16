@@ -38,9 +38,21 @@ namespace TypewiseAlert.Test
             Assert.True(CoolingTypeAlert.ClassifyTemperatureBreach(CoolingTypeAlert.CoolingType.PASSIVE_COOLING, -2) == BreachTypeAlert.BreachType.TOO_LOW);
      }
     [Fact]
-      public void TestSetEmailMessagesForBreachType()
+      public void TestSetEmailMessagesForHighBreachType()
       {
           var emailMessageType = new SetEmailMessagesForBreachType().Email[BreachTypeAlert.BreachType.TOO_HIGH]();
+          Assert.NotNull(emailMessageType);
+      }
+     [Fact]
+      public void TestSetEmailMessagesForLowBreachType()
+      {
+          var emailMessageType = new SetEmailMessagesForBreachType().Email[BreachTypeAlert.BreachType.TOO_LOW]();
+          Assert.NotNull(emailMessageType);
+      }
+     [Fact]
+      public void TestSetEmailMessagesForNormalBreachType()
+      {
+          var emailMessageType = new SetEmailMessagesForBreachType().Email[BreachTypeAlert.BreachType.NORMAL]();
           Assert.NotNull(emailMessageType);
       }
     [Fact]
