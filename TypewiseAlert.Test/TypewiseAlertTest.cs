@@ -8,14 +8,34 @@ namespace TypewiseAlert.Test
   public class TypewiseAlertTest
   {
     [Fact]
-    public void TestInfersBreachAsPerLimits()
+    public void TestInfersBreachAsLowLimits()
     {
       Assert.True(BreachTypeAlert.InferBreach(12, 20, 30) == BreachTypeAlert.BreachType.TOO_LOW);
     }
     [Fact]
-     public void TestClassifyTemperatureBreachLimits()
+    public void TestInfersBreachAsHighLimits()
+    {
+      Assert.True(BreachTypeAlert.InferBreach(38, 20, 30) == BreachTypeAlert.BreachType.TOO_HIGH);
+    }
+    [Fact]
+    public void TestInfersBreachAsNormalLimits()
+    {
+      Assert.True(BreachTypeAlert.InferBreach(25, 20, 30) == BreachTypeAlert.BreachType.NORMAL);
+    }
+    [Fact]
+     public void TestClassifyTemperatureBreachHighCoolingLimits()
      {
             Assert.True(CoolingTypeAlert.ClassifyTemperatureBreach(CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING, 40) == BreachTypeAlert.BreachType.NORMAL);
+     }
+    [Fact]
+     public void TestClassifyTemperatureBreachMeduimCoolingLimits()
+     {
+            Assert.True(CoolingTypeAlert.ClassifyTemperatureBreach(CoolingTypeAlert.CoolingType.MED_ACTIVE_COOLING, 45) == BreachTypeAlert.BreachType.TOO_HIGH);
+     }
+    [Fact]
+     public void TestClassifyTemperatureBreachLowCoolingLimits()
+     {
+            Assert.True(CoolingTypeAlert.ClassifyTemperatureBreach(CoolingTypeAlert.CoolingType.PASSIVE_COOLING, -2) == BreachTypeAlert.BreachType.TOO_LOW);
      }
     [Fact]
     public static void TestControllerNotifier()
