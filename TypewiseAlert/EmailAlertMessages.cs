@@ -4,12 +4,12 @@ using static TypewiseAlert.CoolingTypeAlert;
 
 namespace TypewiseAlert
 {
-    public interface IInitializeEmailContent
+      public interface IInitializeEmailContent
     {
         void GetEmailContent(string Recepient, BreachType BreachType);
     }
 
-    class MailLowBreachTypeInfo : IInitializeEmailContent
+    public class MailLowBreachTypeInfo : IInitializeEmailContent
     {
         public void GetEmailContent(string Recepient, BreachType BreachType)
         {
@@ -17,7 +17,7 @@ namespace TypewiseAlert
         }
     }
 
-    class MailHighBreachTypeInfo : IInitializeEmailContent
+    public class MailHighBreachTypeInfo : IInitializeEmailContent
     {
         public void GetEmailContent(string Recepient, BreachType BreachType)
         {
@@ -25,7 +25,7 @@ namespace TypewiseAlert
         }
     }
 
-    class MailNormalStateInfo : IInitializeEmailContent
+    public class MailNormalStateInfo : IInitializeEmailContent
     {
         public void GetEmailContent(string Recepient, BreachType BreachType)
         {
