@@ -58,13 +58,13 @@ namespace TypewiseAlert.Test
     [Fact]
       public void TestMailHighBreachTypeInfo()
       {
-          var isException = Record.Exception(() => new MailHighBreachTypeInfo().GetEmailContent("test@mail.com", BreachTypeAlert.BreachType.HIGH));
+          var isException = Record.Exception(() => new MailHighBreachTypeInfo().GetEmailContent("test@mail.com", BreachTypeAlert.BreachType.TOO_HIGH));
           Assert.Null(isException);
       }
      [Fact]
       public void TestMailLowBreachTypeInfo()
       {
-          var isException = Record.Exception(() => new MailLowBreachTypeInfo().GetEmailContent("test@mail.com", BreachTypeAlert.BreachType.LOW));
+          var isException = Record.Exception(() => new MailLowBreachTypeInfo().GetEmailContent("test@mail.com", BreachTypeAlert.BreachType.TOO_LOW));
           Assert.Null(isException);
       }
       [Fact]
