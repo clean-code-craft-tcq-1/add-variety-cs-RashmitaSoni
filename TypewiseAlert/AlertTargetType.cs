@@ -19,7 +19,7 @@ namespace TypewiseAlert
             BreachType breachType = ClassifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
             var alertFactory = new AlertFactory();
             var type = alertFactory.GetAlertBasedOnTargetType(alertTarget);
-            type.GetAlertType(breachType);
+            type.CallAlertTartgetType(breachType);
         }
     }
     public class AlertTargetTypes
