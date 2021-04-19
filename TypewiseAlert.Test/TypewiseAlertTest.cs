@@ -103,5 +103,21 @@ namespace TypewiseAlert.Test
             CheckAndAlert(alertTarget, batterychar, 10);
             Assert.True(FakeSentToConsole.IsFakeSentToConsoleInvoked == true);
         }
+    [Fact]
+      public static void TestCompositeCheckAndAlert()
+        {
+            var alerttype = new AllAlertTypes();
+            FakeSentToController callfakecontroller = new FakeSentToController();
+            FakeSentToEmail callfakeemail = new FakeSentToEmail();
+            FakeSentToConsole callfakeconsole = new FakeSentToConsole();
+            alerttype.AddToAlertTargetTypeList(callfakecontroller);
+            alerttype.AddToAlertTargetTypeList(callfakeemail);
+            alerttype.AddToAlertTargetTypeList(callfakeconsole);
+            BatteryCharacter batterychar = new BatteryCharacter();
+            batterychar.brand = "BOSCH";
+            batterychar.coolingType = CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING;
+            CheckAndAlert(alerttype, batterychar, 10);
+            Assert.True(FakeSentToController.IsFakeSentToControllerInvoked && FakeSentToEmail.IsFakeSentToEmailInvoked && FakeSentToConsole.IsFakeSentToConsoleInvoked);
+        }
   }
 }
