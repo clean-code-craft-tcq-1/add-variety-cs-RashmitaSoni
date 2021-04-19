@@ -17,9 +17,7 @@ namespace TypewiseAlert
         public static void CheckAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC)
         {
             BreachType breachType = ClassifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
-            var alertFactory = new AlertFactory();
-            var type = alertFactory.GetAlertBasedOnTargetType(alertTarget);
-            type.CallAlertTartgetType(breachType);
+            alertTarget.CallAlertTartgetType(breachType);
         }
     }
     public class AlertTargetTypes
