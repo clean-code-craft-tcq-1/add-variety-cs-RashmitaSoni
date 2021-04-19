@@ -76,23 +76,32 @@ namespace TypewiseAlert.Test
     [Fact]
     public static void TestControllerNotifier()
         {
-            FakeSentToController callfakecontroller = new FakeSentToController();
-            callfakecontroller.CallAlertTartgetType(BreachTypeAlert.BreachType.NORMAL);
-            Assert.True(FakeSentToController.IsFakeSentToControllerInvoked);
+            BatteryCharacter batterychar = new BatteryCharacter();
+            batterychar.brand = "BOSCH";
+            batterychar.coolingType = CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING;
+            FakeSentToController alertTarget = new FakeSentToController();
+            CheckAndAlert(alertTarget, batterychar, 10);
+            Debug.Assert(FakeSentToController.IsFakeSentToControllerInvoked == true);
         }
     [Fact]
     public static void TestEmailNotifier()
         {
-            FakeSentToEmail callfakeemail = new FakeSentToEmail();
-            callfakeemail.CallAlertTartgetType(BreachTypeAlert.BreachType.NORMAL);
-            Assert.True(FakeSentToEmail.IsFakeSentToEmailInvoked);
+            BatteryCharacter batterychar = new BatteryCharacter();
+            batterychar.brand = "BOSCH";
+            batterychar.coolingType = CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING;
+            FakeSentToEmail alertTarget = new FakeSentToEmail();
+            CheckAndAlert(alertTarget, batterychar, 10);
+            Debug.Assert(FakeSentToEmail.IsFakeSentToEmailInvoked == true);
         }
     [Fact]
     public static void TestConsoleNotifier()
         {
-            FakeSentToConsole callfakeconsole = new FakeSentToConsole();
-            callfakeconsole.CallAlertTartgetType(BreachTypeAlert.BreachType.NORMAL);
-            Assert.True(FakeSentToConsole.IsFakeSentToConsoleInvoked);
+            BatteryCharacter batterychar = new BatteryCharacter();
+            batterychar.brand = "BOSCH";
+            batterychar.coolingType = CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING;
+            FakeSentToConsole alertTarget = new FakeSentToConsole();
+            CheckAndAlert(alertTarget, batterychar, 10);
+            Debug.Assert(FakeSentToConsole.IsFakeSentToConsoleInvoked == true);
         }
   }
 }
