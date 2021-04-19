@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using static TypewiseAlert.AlertTargetType;
 using static TypewiseAlert.BreachTypeAlert;
-using static TypewiseAlert.CoolingTypeAlert;
 
 namespace TypewiseAlert
 {
@@ -14,74 +12,74 @@ namespace TypewiseAlert
             TO_EMAIL,
             TO_CONSOLE
         };
-        public abstract class AlertType
+        public interface IAlertType
         {
-            public abstract void CallAlertTartgetType(BreachType breachType);
+             void CallAlertTartgetType(BreachType breachType);
         }
-        public class SendToController : AlertType
+        public class SendToController : IAlertType
         {
-            public override void CallAlertTartgetType(BreachType breachType)
+            public void CallAlertTartgetType(BreachType breachType)
             {
                 AlertTargetTypes.SendToController(breachType);
             }
         }
 
-        public class SendToEmail : AlertType
+        public class SendToEmail : IAlertType
         {
-            public override void CallAlertTartgetType(BreachType breachType)
+            public void CallAlertTartgetType(BreachType breachType)
             {
                 AlertTargetTypes.SendToEmail(breachType);
             }
         }
 
-        public class SentToConsole : AlertType
+        public class SentToConsole : IAlertType
         {
-            public override void CallAlertTartgetType(BreachType breachType)
+            public void CallAlertTartgetType(BreachType breachType)
             {
                 AlertTargetTypes.SendToConsole(breachType);
             }
         }
 
         //For Testing
-        public class FakeSentToController : AlertType
+        public class FakeSentToController : IAlertType
         {
             public static bool IsFakeSentToControllerInvoked = false;
-            public override void CallAlertTartgetType(BreachType breachType)
+            public void CallAlertTartgetType(BreachType breachType)
             {
                 IsFakeSentToControllerInvoked = true;
             }
         }
-        public class FakeSentToEmail : AlertType
+        public class FakeSentToEmail : IAlertType
         {
             public static bool IsFakeSentToEmailInvoked = false;
-            public override void CallAlertTartgetType(BreachType breachType)
+            public void CallAlertTartgetType(BreachType breachType)
             {
                 IsFakeSentToEmailInvoked = true;
             }
         }
-        public class FakeSentToConsole : AlertType
+        public class FakeSentToConsole : IAlertType
         {
             public static bool IsFakeSentToConsoleInvoked = false;
-            public override void CallAlertTartgetType(BreachType breachType)
+            public void CallAlertTartgetType(BreachType breachType)
             {
                 IsFakeSentToConsoleInvoked = true;
             }
         }
         public class AlertFactory
         {
-            private Dictionary<AlertTarget, Func<AlertType>> _alertTypeMapper;
+            private Dictionary<AlertTarget, Func<IAlertType>> _alertTypeMapper;
 
             public AlertFactory()
             {
-                _alertTypeMapper = new Dictionary<AlertTarget, Func<AlertType>>();
+                _alertTypeMapper = new Dictionary<AlertTarget, Func<IAlertType>>();
                 _alertTypeMapper.Add(AlertTarget.TO_CONTROLLER, () => { return new SendToController(); });
                 _alertTypeMapper.Add(AlertTarget.TO_EMAIL, () => { return new SendToEmail(); });
                 _alertTypeMapper.Add(AlertTarget.TO_CONSOLE, () => { return new SentToConsole(); });
             }
 
-            public AlertType GetAlertBasedOnTargetType(AlertTarget aterType)
+            public IAlertType GetAlertBasedOnTargetType(AlertTarget alertType)
             {
-                return _alertTypeMapper[aterType]();
+                return _alertTypeMapper[alertType]();
             }
         }
         
