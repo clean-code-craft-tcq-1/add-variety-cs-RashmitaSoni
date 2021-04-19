@@ -81,7 +81,7 @@ namespace TypewiseAlert.Test
             batterychar.coolingType = CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING;
             FakeSentToController alertTarget = new FakeSentToController();
             CheckAndAlert(alertTarget, batterychar, 10);
-            Debug.Assert(FakeSentToController.IsFakeSentToControllerInvoked == true);
+            Assert.True(FakeSentToController.IsFakeSentToControllerInvoked == true);
         }
     [Fact]
     public static void TestEmailNotifier()
@@ -91,7 +91,7 @@ namespace TypewiseAlert.Test
             batterychar.coolingType = CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING;
             FakeSentToEmail alertTarget = new FakeSentToEmail();
             CheckAndAlert(alertTarget, batterychar, 10);
-            Debug.Assert(FakeSentToEmail.IsFakeSentToEmailInvoked == true);
+            Assert.True(FakeSentToEmail.IsFakeSentToEmailInvoked == true);
         }
     [Fact]
     public static void TestConsoleNotifier()
@@ -101,7 +101,7 @@ namespace TypewiseAlert.Test
             batterychar.coolingType = CoolingTypeAlert.CoolingType.HI_ACTIVE_COOLING;
             FakeSentToConsole alertTarget = new FakeSentToConsole();
             CheckAndAlert(alertTarget, batterychar, 10);
-            Debug.Assert(FakeSentToConsole.IsFakeSentToConsoleInvoked == true);
+            Assert.True(FakeSentToConsole.IsFakeSentToConsoleInvoked == true);
         }
   }
 }
